@@ -1,3 +1,6 @@
+agents_store.db
+responses_store.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
