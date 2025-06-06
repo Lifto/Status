@@ -1,0 +1,43 @@
+version: '2'
+image_name: llamastack-mcp-git
+container_image: null
+
+apis:
+  - inference
+  - telemetry
+  - tool_runtime
+  - agents
+  - safety
+  - vector_io
+
+providers:
+  inference:
+    - provider_id: ollama-local
+      provider_type: remote::ollama
+      config:
+        base_url: http://localhost:11434
+  telemetry:
+    - provider_id: meta-reference
+      provider_type: inline::meta-reference
+      config:
+        sinks: ['console']
+  agents:
+    - provider_id: meta-reference
+      provider_type: inline::meta-reference
+      config:
+        persistence_store:
+          type: sqlite
+          namespace: null
+          db_path: ./agents_store.db
+        responses_store:
+          type: sqlite
+          db_path: ./responses_store.db
+
+models:
+  - model_id: granite3.3-8b
+    provider_id: ollama-local
+    model_type: llm
+    provider_model_id: granite3.3:8b
+
+server:
+  port: 8321
